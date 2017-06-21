@@ -1,0 +1,108 @@
+{% extends 'base\baseMactor.html' %}
+
+{% block pull-left %}
+<h2>Objetivos registrados</h2>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget wgreen">
+<div class="widget-head">
+    <div class="pull-left"></div>
+    <div class="widget-icons pull-right">
+        <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+        <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="widget-content">
+<table class="table table-bordered ">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Nombre Largo</th>
+        <th>Nombre Corto</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {%if object_list %}
+    {% for objetivo in object_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{objetivo.nombreLargo|upper}}</td>
+            <td>{{objetivo.nombreCorto|upper}}</td>
+            <td>{{objetivo.descripcion}}</td>
+            <td>
+                <a class="btn btn-warning" href="{%url 'mactor:editar_objetivo' objetivo.id%}"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger" href="{%url 'mactor:eliminar_objetivo' objetivo.id%}"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    {% else %}
+    <h2>No hay objetivos registrados</h2>
+
+    {% endif %}
+    </tbody>
+</table>
+</div>
+                     <! SECCION DE PAGINACION ----------------------------------->
+                    <div class="widget-foot">
+										<ul class="pagination pull-right">
+										  <li>
+                                              {% if page_obj.has_previous %}
+                                              <a href="?page={{page_obj.previous_page_number}}">Anterior</a>
+                                              {% endif %}
+                                          </li>
+
+										  <li>
+                                              {% if page_obj.has_next %}
+                                              <a href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                                              {% endif %}
+                                          </li>
+										</ul>
+										<div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <! SECCION  DE BOTONES--------------------------------------------------------------------------------->
+            <div class="form-group">
+
+                <div class="col-md-offset-2 col-md-8">
+                    <a class="btn btn-primary" href="{%url 'mactor:listar_actor'%}">Atrás</a>
+                    <a class="btn btn-sm btn-success" href="{%url 'mactor:objetivo'%}">Agregar</a>
+                    <a class="btn btn-primary" data-toggle="modal" href="#myModal">Ayuda</a>
+
+                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+								  <div class="modal-content">
+								  <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title">Ayuda</h4>
+								  </div>
+								  <div class="modal-body">
+									<p>Ingrese la información de los objetivos del estudio</p>
+								  </div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+								  </div>
+								</div>
+								</div>
+								</div>
+
+                    <a class="btn btn-sm btn-success" href="{%url 'mactor:influencia'%}">Siguiente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

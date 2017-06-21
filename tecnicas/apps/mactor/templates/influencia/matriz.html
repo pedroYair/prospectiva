@@ -1,0 +1,155 @@
+{% extends 'base\baseMactor.html' %}
+
+{% block pull-left %}
+<h2>Matrices de influencia directa e indirecta</h2>
+{% endblock %}
+
+{% block content %}
+
+<! Matriz MID-------------------------------------------------------------------------------------------------->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="widget wgreen">
+                    <div class="widget-head">
+                         <div class="pull-left">MID - Matriz de influencias directas</div>
+                        <div class="widget-icons pull-right"></div>
+                        <div class="clearfix"></div>
+                    </div>
+
+<div class="widget-content">
+
+<table class="table table-bordered" id="tabla1">
+    <thead>
+        <tr>
+            <input style='text-align: center;'  type="text" size="7" value="Influencia">
+            {%if actores %}
+                {% for actor in actores %}
+                <input style='text-align: center;' type="text" size="7" value="{{actor.nombreCorto}}">
+                {% endfor %}
+            {% else %}
+            <h2>No hay actores registrados</h2>
+            {% endif %}
+            <br>
+         </tr>
+    </thead>
+
+    <tbody>
+
+        {%if valores %}
+    <tr>
+    {%for i in valores%}
+        {%if i.posicion == mitad%}
+        <input style='text-align: center;' type="text" size="7" value="{{i.valor}}">
+        <br>
+        {%else%}
+         <input style='text-align: center;' type="text" size="7" value="{{i.valor}}">
+        {%endif%}
+    {%endfor%}
+        {% else %}
+            <h2>No hay influencias registradas</h2>
+        {% endif %}
+            <br>
+    </tr>
+    </tbody>
+</table>
+
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<! ------------------------------------------------------------------------------------------------------------>
+
+<br>
+<br>
+
+<! MATRIZ MIDI------------------------------------------------------------------------------------------------->
+<div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="widget wgreen">
+                    <div class="widget-head">
+                         <div class="pull-left">MIDI - Matriz de Influencias Indirectas</div>
+                        <div class="widget-icons pull-right"></div>
+                        <div class="clearfix"></div>
+                    </div>
+
+<div class="widget-content">
+
+<table class="table table-bordered" id="tabla2">
+    <thead>
+        <tr>
+            <input style='text-align: center;'  type="text" size="7" value="Influencia">
+            {%if actores %}
+                {% for actor in actores %}
+                <input style='text-align: center;' type="text" size="7" value="{{actor.nombreCorto}}">
+                {% endfor %}
+            {% else %}
+            <h2>No hay actores registrados</h2>
+            {% endif %}
+            <br>
+         </tr>
+    </thead>
+
+    <tbody>
+
+        {%if valores_midi %}
+    <tr>
+    {%for i in valores_midi %}
+        {%if i.posicion == mitad%}
+        <input style='text-align: center;' type="text" size="7" value="{{i.valor}}">
+        <br>
+        {%else%}
+         <input style='text-align: center;' type="text" size="7" value="{{i.valor}}">
+        {%endif%}
+    {%endfor%}
+        {% else %}
+            <h2>No hay influencias registradas</h2>
+        {% endif %}
+            <br>
+    </tr>
+    </tbody>
+</table>
+
+</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-offset-2 col-md-8">
+                   <a class="btn btn-sm btn-success" href="{%url 'mactor:influencia'%}"><i class="fa fa-plus"></i>Atrás</a>
+                        <a class="btn btn-primary" data-toggle="modal" href="#myModal">Ayuda</a>
+                            <a class="btn btn-sm btn-success" href="{%url 'mactor:listar_objetivo'%}">Siguiente</a>
+
+                    <! INICIO MODAL AYUDA--------------------------->
+
+                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+								     <div class="modal-content">
+								     <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+									<h4 class="modal-title">Ayuda</h4>
+								     </div>
+								     <div class="modal-body">
+									<p>Lista de actores a estudiar mediante MACTOR</p>
+								     </div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+								  </div>
+								    </div>
+								</div>
+                    </div>
+
+                    <! FINAL MODAL AYUDA--------------------------->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+<! ------------------------------------------------------------------------------------------------------------>
+
+
+{% endblock %}

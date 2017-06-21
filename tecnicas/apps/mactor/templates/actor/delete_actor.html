@@ -1,0 +1,18 @@
+{% extends 'base\baseMactor.html' %}
+
+{% block pull-left %}
+<h2> Agregar actor al estudio</h2>
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el actor {{object.nombreLargo}}?</h3>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                           <!namespace:name>
+    <a class="btn btn-default" href="{%url 'mactor:listar_actor'%}">Cancelar</a>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+<select class="form-control" style="width: 39px;padding-bottom: 3px;padding-top: 3px;padding-left: 4px;padding-right: 4px;">
+																<option value="1">0: Sin influencias</option>
+																<option value="2">1: Debil</option>
+																<option value="3">2: Media</option>
+																<option value="4">3: Fuerte</option>
+																<option value="5">P: Potencial</option>
+											</select>
