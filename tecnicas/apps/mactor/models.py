@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# MODELO ESTUDIO MACTOR------------------------------------------------------------------->
+# MODELO ESTUDIO MACTOR----------------------------------------------------------------------->
 
 class Estudio_Mactor(models.Model):
     codigo = models.PositiveIntegerField(default=1)
@@ -31,6 +31,7 @@ class Estudio_Mactor(models.Model):
 
 # MODELO ACTOR: FASE 1 - LISTA DE ACTORES----------------------------------------------------->
 
+
 class Actor(models.Model):
     nombreLargo = models.CharField(max_length=50)
     nombreCorto = models.CharField(max_length=10)
@@ -44,26 +45,25 @@ class Actor(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.nombreCorto, self.nombreLargo)
 
-# MODELO FICHA DE ACTOR---------------------------------------------------------------------->
+# MODELO OBJETIVO: FASE 2 - LISTA DE OBJETIVOS------------------------------------------------>
 
-class Ficha(models.Model):
-    nombre = models.ForeignKey(Actor)
-    descripcion = models.TextField(blank=True, null=True)
-    objetivos = models.TextField(blank=True, null=True)
-    preferencias = models.TextField(blank=True, null=True)
-    motivaciones = models.TextField(blank=True, null=True)
-    propuestas = models.TextField(blank=True, null=True)
-    comportamiento = models.TextField(blank=True, null=True)
-    recursos = models.TextField(blank=True, null=True)
+class Ficha_actor(models.Model):
+    actorY = models.ForeignKey(Actor, null=True, blank=False, related_name='mactor_actorY_ficha')
+    actorX = models.ForeignKey(Actor, null=True, blank=False, related_name='mactor_actorX_ficha')
+    info = models.TextField(null=True, blank=True)
+    creador = models.ForeignKey(User, null=True)
+    codigo_Estudio = models.PositiveIntegerField(default=1)
 
     class Meta:
-        verbose_name = 'Ficha'
-        verbose_name_plural = 'Fichas'
+        verbose_name = 'Ficha_actor'
+        verbose_name_plural = 'Fichas_actores'
+        # para evitar que la pareja de registros se repita en ese mismo orden
+        unique_together = ('actorY', 'actorX', 'creador')
+
 
     def __unicode__(self):
-        return u'{0} - {1} - {2} - {3}'.format(self.nombre, self.descripcion, self.objetivos, self.preferencias)
+        return u'{0} - {1} - {2}'.format(self.actorY, self.actorX, self.info)
 
-# MODELO OBJETIVO: FASE 2 - LISTA DE OBJETIVOS------------------------------------------------>
 
 class Objetivo(models.Model):
     nombreLargo = models.CharField(max_length=50)
@@ -78,7 +78,8 @@ class Objetivo(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.nombreCorto, self.nombreLargo)
 
-# MODELO INFLUENCIAS MID------------------------------------------------------------------>
+# MODELO INFLUENCIAS MID---------------------------------------------------------------------->
+
 
 class Relacion_Influencia(models.Model):
     actorX = models.ForeignKey(Actor, null=True, blank=False, related_name='mactor_actorX_set')
@@ -96,15 +97,15 @@ class Relacion_Influencia(models.Model):
 
 
     def __unicode__(self):
-        return u'{0} - {1} - {2}'.format(self.actorX, self.actorY, self.valor)
+        return u'{0} - {1} - {2}'.format(self.actorY, self.actorX, self.valor)
 
 
 # MODELO RELACIONES MAO : ACTORES X OBJETIVOS---------------------------------------------->
 
 class Relacion_MAO(models.Model):
-    tipo = models.IntegerField()
-    objetivoX = models.ForeignKey(Objetivo, null=False, blank=False, on_delete=models.CASCADE)
+    tipo = models.IntegerField(null=True, blank=True)
     actorY = models.ForeignKey(Actor, null=False, blank=False, on_delete=models.CASCADE)
+    objetivoX = models.ForeignKey(Objetivo, null=False, blank=False, on_delete=models.CASCADE)
     valor = models.IntegerField()
     justificacion = models.TextField(max_length=50, null=True, blank=True)
     creador = models.ForeignKey(User, null=True)
@@ -113,9 +114,10 @@ class Relacion_MAO(models.Model):
     class Meta:
         verbose_name = 'Relacion_MAO'
         verbose_name_plural = 'Relaciones_MAO'
+        unique_together = ('tipo', 'actorY', 'objetivoX', 'creador')
 
     def __unicode__(self):
-        return u'{0} - {1} - {2} - {3} - {4} - {5}'.format(self.tipo, self.objetivoX, self.actorY, self.valor, self.creador, self.justificacion)
+        return u'{0} - {1} - {2} - {3} - {4}'.format(self.tipo, self.actorY, self.objetivoX, self.valor, self.creador)
 
 
 # MODELO CUESTION ESTRATEGICA--------------------------------------------------------------->

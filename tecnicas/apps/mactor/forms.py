@@ -1,8 +1,8 @@
 # coding=utf-8
 from django import forms
 from django.contrib.auth.models import User
-from .models import Actor, Ficha, Objetivo, Estudio_Mactor, Relacion_Influencia
-from .choices import VALORES
+from .models import Actor, Ficha_actor, Objetivo, Estudio_Mactor, Relacion_Influencia, Relacion_MAO
+from .choices import VALORES, VALORES_1MAO, VALORES_2MAO
 
 
 # FORMULARIO DE ESTUDIO MACTOR----------------------------------------------------------------------------------------->
@@ -41,7 +41,6 @@ class Formulario_Estudio(forms.ModelForm):
             'estado': forms.CheckboxInput(),
             'codigo_proy': forms.TextInput(attrs={'class': 'form-control'}),
         }
-
 
 # FORMULARIO DE ACTOR-------------------------------------------------------------------------------------------------->
 
@@ -84,40 +83,33 @@ class Formulario_actor(forms.ModelForm):
         widgets = {
             'nombreLargo': forms.TextInput(attrs={'class': 'form-control'}),
             'nombreCorto': forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'row': '3', 'placeholder': u'Ingrese información '
+                         'relacionada a objetivos, preferencias, motivaciones, propuestas, comportamientos o recursos del actor.'}),
             'codigo_Estudio': forms.TextInput(attrs={'class': 'form-control'}, ),
         }
 
-
-# FORMULARIO FICHA----------------------------------------------------------------------------------------------------->
+# FORMULARIO FICHA DEL ACTOR
 
 class Formulario_Ficha(forms.ModelForm):
+
     class Meta:
-        model = Ficha
+        model = Ficha_actor
 
         fields = [
-            'nombre',
-            'descripcion',
-            'objetivos',
-            'preferencias',
-            'motivaciones',
-            'propuestas',
-            'comportamiento',
-            'recursos',
+            'actorX',
+            'actorY',
+            'info',
+            'creador',
+            'codigo_Estudio',
         ]
 
         widgets = {
-            'nombre': forms.Select(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'objetivos': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'preferencias': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'motivaciones': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'propuestas': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'comportamiento': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-            'recursos': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
-
+            'actorX': forms.Select(attrs={'class': 'form-control'}),
+            'actorY': forms.Select(attrs={'class': 'form-control'}),
+            'info': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
+            'creador': forms.Select(attrs={'class': 'form-control'}),
+            'codigo_Estudio': forms.TextInput(attrs={'class': 'form-control'}, ),
         }
-
 
 # FORMULARIO DE OBJETIVO----------------------------------------------------------------------------------------------->
 
@@ -172,6 +164,7 @@ class Formulario_objetivo(forms.ModelForm):
 
 
 # FORMULARIO DE INFLUENCIAS-------------------------------------------------------------------------------------------->
+
 class Formulario_Influencia(forms.ModelForm):
 
     def clean_actorY(self):
@@ -184,7 +177,6 @@ class Formulario_Influencia(forms.ModelForm):
 
     class Meta:
         model = Relacion_Influencia
-        exclude = ('tipo',)
 
         fields = [
             'actorX',
@@ -199,6 +191,60 @@ class Formulario_Influencia(forms.ModelForm):
             'actorX': forms.Select(attrs={'class': 'form-control'}),
             'actorY': forms.Select(attrs={'class': 'form-control'}),
             'valor': forms.Select(choices=VALORES, attrs={'class': 'regDropDown'}),
+            'justificacion': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
+            'creador': forms.Select(attrs={'class': 'form-control'}),
+            'codigo_Estudio': forms.TextInput(attrs={'class': 'form-control'}, ),
+        }
+
+# FORMULARIO 1MAO------------------------------------------------------------------------------------------------------>
+
+class Formulario_1mao(forms.ModelForm):
+
+    class Meta:
+        model = Relacion_MAO
+
+        fields = [
+            'tipo',
+            'actorY',
+            'objetivoX',
+            'valor',
+            'justificacion',
+            'creador',
+            'codigo_Estudio',
+            ]
+
+        widgets = {
+            'tipo': forms.TextInput(attrs={'class': 'form-control'}, ),
+            'actorY': forms.Select(attrs={'class': 'form-control'}),
+            'objetivoX': forms.Select(attrs={'class': 'form-control'}),
+            'valor': forms.Select(choices=VALORES_1MAO, attrs={'class': 'regDropDown'}),
+            'justificacion': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
+            'creador': forms.Select(attrs={'class': 'form-control'}),
+            'codigo_Estudio': forms.TextInput(attrs={'class': 'form-control'}, ),
+            }
+
+# FORMULARIO 2MAO------------------------------------------------------------------------------------------------------>
+
+class Formulario_2mao(forms.ModelForm):
+
+    class Meta:
+        model = Relacion_MAO
+
+        fields = [
+            'tipo',
+            'actorY',
+            'objetivoX',
+            'valor',
+            'justificacion',
+            'creador',
+            'codigo_Estudio',
+        ]
+
+        widgets = {
+            'tipo': forms.TextInput(attrs={'class': 'form-control'}, ),
+            'actorY': forms.Select(attrs={'class': 'form-control'}),
+            'objetivoX': forms.Select(attrs={'class': 'form-control'}),
+            'valor': forms.Select(choices=VALORES_2MAO, attrs={'class': 'regDropDown'}),
             'justificacion': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
             'creador': forms.Select(attrs={'class': 'form-control'}),
             'codigo_Estudio': forms.TextInput(attrs={'class': 'form-control'}, ),

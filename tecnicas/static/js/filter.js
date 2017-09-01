@@ -5,7 +5,8 @@
  
   function filterList(header, slist) {
     var form = $("<form>").attr({"class":"filterform form-search","action":"#"}),
-        input = $("<input>").attr({"class":"filterinput","placeholder":"Type to Filter","type":"text"});
+        input = $("<input>").attr({"class":"filterinput","placeholder":"Filtrar de la lista","type":"text"});
+        input.css("float","right");
     $(form).append(input).appendTo(header);
  
     $(input)

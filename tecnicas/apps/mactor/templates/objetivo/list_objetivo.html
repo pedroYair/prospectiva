@@ -75,31 +75,30 @@
 
             <! SECCION  DE BOTONES--------------------------------------------------------------------------------->
             <div class="form-group">
-
                 <div class="col-md-offset-2 col-md-8">
-                    <a class="btn btn-primary" href="{%url 'mactor:listar_actor'%}">Atrás</a>
-                    <a class="btn btn-sm btn-success" href="{%url 'mactor:objetivo'%}">Agregar</a>
-                    <a class="btn btn-primary" data-toggle="modal" href="#myModal">Ayuda</a>
+                    <a class="btn btn-sm btn-success" href="{%url 'mactor:listar_actor'%}"><i class="fa fa-arrow-left"></i> Atrás</a>
+                    <a class="btn btn-primary" href="{%url 'mactor:objetivo'%}"><i class="fa fa-plus"></i> Agregar</a>
+                    <a class="btn btn-primary" data-toggle="modal" href="#myModal"><i class="fa fa-book"></i> Ayuda</a>
+                    <a class="btn btn-sm btn-success" href="{%url 'mactor:influencia'%}">Siguiente <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
 
-                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
-								  <div class="modal-content">
+								    <div class="modal-content">
 								  <div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 									<h4 class="modal-title">Ayuda</h4>
 								  </div>
-								  <div class="modal-body">
-									<p>Ingrese la información de los objetivos del estudio</p>
+								  <div class="modal-body" style="text-align: justify">
+									<p>Cuestiones y objetivos estratégicos asociados a analizar mediante MACTOR.
+                                    Estos objetivos son determinados a partir de la información relacionada a la tabla de estrategias de los actores, ya que esto ayuda a evidenciar los campos de batalla donde los actores se enfrentarán entre sí. </p>
 								  </div>
 								  <div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cerrar</button>
 								  </div>
+								    </div>
 								</div>
-								</div>
-								</div>
-
-                    <a class="btn btn-sm btn-success" href="{%url 'mactor:influencia'%}">Siguiente</a>
-                </div>
             </div>
         </div>
     </div>
